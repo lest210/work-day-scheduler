@@ -1,6 +1,6 @@
 //set variables
 
-var currentDay = $("#currenDay");
+var currentDay = $("#currentDay");
 var times = $(".time");
 var schedule = $(".container")
 
@@ -12,6 +12,8 @@ var currentHr= moment().format("H");
 function startSchedule(){
 //console.log(toDo);
 
+
+//time blocks
     times.each(function(){
         var block = $(this);
         var blockHr = parseInt(block.attr("data-hour"));
@@ -36,14 +38,14 @@ function setUpTimeBlocks(){
         var blockHr = parseInt(block.attr("data-hour"));
 
         if(blockHr == currentHr) {
-            block.addClass("present").removeClass("past-future");
+            block.addClass("present").removeClass("past future");
         }
 
-        if (blockHr < currentHr){
-            block.addClass("past").removeClass("present-feature");
+       else if (blockHr < currentHr){
+            block.addClass("past").removeClass("present future");
         }
-        if (blockHr > currentHr) {
-            block.addClass("future").removeClass("past-present");
+        else {
+            block.addClass("future").removeClass("past present");
         }
     });
 }
@@ -77,6 +79,7 @@ function saveHandler(){
 }
 
 $(document).ready(function(){
+    
     setUpTimeBlocks();
 
     if(!localStorage.getItem("todos")){
